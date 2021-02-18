@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     private int puntaje = 0;
     private int tiempo = 30;
+    private int delay = 1500;
 
     private boolean cuenta = true;
+    private boolean isPressed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,45 @@ public class MainActivity extends AppCompatActivity {
 
         nuevaPregunta();
         Temporizador();
+
+        /*pregunta.setOnTouchListener(
+                (view, event) -> {
+                    switch(event.getAction()){
+                        case MotionEvent.ACTION_DOWN:
+                            isPressed = true;
+                            new Thread (
+                                    () -> {
+                                        while(isPressed){
+                                            delay --;
+                                            for(int i =0; i<20; i++) {
+                                                try {
+                                                    Thread.sleep(75);
+                                                    if (isPressed == false){
+                                                        return;
+                                                    } else {
+
+                                                    }
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            runOnUiThread(
+                                                    () -> {
+                                                        responder();
+                                                    }
+                                            );
+                                        }
+
+                                    }
+                            ).start();
+                        break;
+                        case MotionEvent.ACTION_UP:
+                            isPressed = false;
+                            break;
+                    }
+                    return true;
+                }
+        );*/
 
         enviarBoton.setOnClickListener(
                 v-> {
